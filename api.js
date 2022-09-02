@@ -11,12 +11,38 @@ const addCategories = categories => {
         creatdiv.classList.add('col');
         creatdiv.innerHTML = `
             <div class="col single-style">
-                 <button class="btn">${categorie.category_name}</button>
+                 <button class="btn" onclick="newsfile()">${categorie.category_name}</button>
             </div>
         `
         addcategoriesId.appendChild(creatdiv);
 
     })
 
+}
+const newsfile = () => {
+    fetch('https://openapi.programming-hero.com/api/news/category/01')
+        .then(res => res.json())
+        .then(data => singlenews(data.data))
+    // console.log(data);
+}
+
+const singlenews = () => {
+    const newssection = document.getElementById('news-section');
+    const CreatDiv = document.createElement('div');
+    CreatDiv.classList.add('row', 'g-0');
+    CreatDiv.innerHTML = `
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    `
+    newssection.appendChild(CreatDiv);
 }
 Allcategories()
