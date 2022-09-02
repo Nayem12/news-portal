@@ -11,22 +11,23 @@ const addCategories = categories => {
         creatdiv.classList.add('col');
         creatdiv.innerHTML = `
             <div class="col single-style">
-                 <button class="btn" onclick="newsfile()">${categorie.category_name}</button>
+                 <button class="btn" onclick="newsfile('${categorie.category_id}')">${categorie.category_name}</button>
             </div>
         `
         addcategoriesId.appendChild(creatdiv);
 
     })
-
+    // '${categorie}'
 }
-const newsfile = () => {
-    fetch('https://openapi.programming-hero.com/api/news/category/01')
+const newsfile = category_id => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
+    fetch(url)
         .then(res => res.json())
-        .then(data => singlenews(data.data))
+        .then(data => singlenews(data))
     // console.log(data);
 }
 
-const singlenews = () => {
+const singlenews = find => {
     const newssection = document.getElementById('news-section');
     const CreatDiv = document.createElement('div');
     CreatDiv.classList.add('row', 'g-0');
@@ -46,3 +47,4 @@ const singlenews = () => {
     newssection.appendChild(CreatDiv);
 }
 Allcategories()
+{/* <img src="${find.image_url}" class="img-fluid rounded-start" alt="..."> */ }
