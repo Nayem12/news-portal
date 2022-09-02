@@ -5,7 +5,7 @@ const Allcategories = () => {
 }
 const addCategories = categories => {
     categories.forEach(categorie => {
-        console.log(categorie);
+        // console.log(categorie);
         const addcategoriesId = document.getElementById('add-categories');
         const creatdiv = document.createElement('div');
         creatdiv.classList.add('col');
@@ -19,21 +19,24 @@ const addCategories = categories => {
     })
     // '${categorie}'
 }
-const newsfile = category_id => {
+const newsfile = (category_id) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     fetch(url)
         .then(res => res.json())
-        .then(data => singlenews(data))
+        .then(data => singlenews(data.data))
     // console.log(data);
 }
 
-const singlenews = find => {
+const singlenews = finds => {
     const newssection = document.getElementById('news-section');
-    const CreatDiv = document.createElement('div');
-    CreatDiv.classList.add('row', 'g-0');
-    CreatDiv.innerHTML = `
+    newssection.innerHTML = ``;
+    finds.forEach(find => {
+        console.log(find)
+        const CreatDiv = document.createElement('div');
+        CreatDiv.classList.add('row', 'g-0', 'mt-5');
+        CreatDiv.innerHTML = `
     <div class="col-md-4">
-        
+        <img src="${find.image_url}" class="img-fluid rounded-start" alt="...">
     </div>
     <div class="col-md-8">
         <div class="card-body">
@@ -44,7 +47,8 @@ const singlenews = find => {
         </div>
     </div>
     `
-    newssection.appendChild(CreatDiv);
+        newssection.appendChild(CreatDiv);
+    })
 }
 Allcategories()
 {/* <img src="${find.image_url}" class="img-fluid rounded-start" alt="..."> */ }
