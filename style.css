@@ -24,25 +24,22 @@
     height: 40%;
 }
 
-#author-visit {
-    display: flex;
-    justify-content: space-between;
-}
 
 #footer-section {
     background-color: rgb(240, 231, 218);
     color: black;
 }
 
-.author-info {
-    display: flex;
-
-
+/* width: 40px; height: 40px; border-radius: 50%; */
+.aurthor-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
-.aurthor-img {
-    height: 50%;
-    width: 55%;
+.aurthor-info {
+    display: flex;
+    flex-direction: column;
 }
 
 .qsn-list p {

@@ -2,6 +2,7 @@ const Allcategories = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => addCategories(data.data.news_category))
+        .catch(error => console.log(error));
 }
 const addCategories = categories => {
     categories.forEach(categorie => {
@@ -37,34 +38,41 @@ const singlenews = finds => {
     newssection.innerHTML = ``;
     finds.forEach(find => {
         console.log(find)
-        const CreatDiv = document.createElement('div');
-        CreatDiv.classList.add('row', 'g-0',);
-        CreatDiv.innerHTML = `
-        <div class="col-lg-4 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnNews" onclick="personalId('${find._id}')">
-            <img src="${find.image_url}" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-lg-8 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnNews" onclick="personalId('${find._id}')">
-        <div class="card-body ms-2">
-            <h5 class="card-title">${find.title}</h5>
-            <p class="card-text" id="news-details">${find.details ? find.details : 'nothing found'}</p>
-            <div id="author-visit">
-                <div class="author-info">
-                    <div class="img">
-                        <img src="${find.author.img}" class="img-fluid rounded-circle w-50 h-50" alt="...">
-                    </div>
-                    <div>
-                        <p>${find.author.name ? find.author.name : 'nothing found'}</p>
+        const newsDiv = document.createElement('div');
+        newsDiv.classList.add = "card mb-3 bg-white p-4";
+        newsDiv.innerHTML = `
+        <div class="row g-0 mt-4"  data-bs-toggle="modal" data-bs-target="#searchOnNews"    onclick="personalId('${find._id}')">
+        <div class="col-md-2">
+        <img src="${find.image_url}" class="img-fluid w-100 h-100 p-2 rounded-start" alt="...">
+    </div>
+    <div class="col-md-10 container-fluid">
+        <div class="card-body d-flex flex-column h-100 justify-content-between">
+        <h5 class="card-title">${find.title}</h5>
+        <p class="card-text" id="news-details">${find.details ? find.details : 'nothing found'}</p>
+            
+            <div class="d-flex justify-content-between">
+                <div class="d-flex gap-2 align-items-center">
+                    <img class="aurthor-img" src="${find.author.img}" alt="...">
+                    <div class="aurthor-info">
+                        <p class="mt-2">${find.author.name ? find.author.name : "No Author Name Found"}</p>
                         <p>${find.author.published_date}</p>
                     </div>
                 </div>
+                <div class="d-flex gap-2">
+                    <p><i class="fa-regular fa-eye"></i></p>
+                    <p>${find.total_view ? find.total_view : '0'}</p>
+                </div>
                 <div>
-                    <p>views:${find.total_view ? find.total_view : 'nothing found'}</p>
+                    <p class="pointer-cursor" onclick="loadDetails('${find._id}')" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalScrollable"><i class="fa-solid fa-arrow-right-long"></i></p>
                 </div>
             </div>
+            
         </div>
     </div>
-    `
-        newssection.appendChild(CreatDiv);
+        </div>
+        `;
+        newssection.appendChild(newsDiv);
     });
     togglebar(false);
 
@@ -97,7 +105,7 @@ const displayModal = allnews => {
       <img class="img-fluid" src="${news.author.img}" alt="">
       <P>${news.author.name ? news.author.name : 'No found name'} </br> ${news.author.published_date}
       <hr>
-      <p><i class="fa-solid fa-eye"></i> ${news.total_view ? news.total_view : 'No data available'} </p>
+      <p>${news.total_view ? news.total_view : 'No data available'} </p>
       <p>${news.title}</p>
       <img class="img-fluid" src="${news.thumbnail_url}" alt="">
       `
