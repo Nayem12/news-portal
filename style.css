@@ -5,3 +5,19 @@
 .single-style {
     color: orangered;
 }
+
+#news-details {
+    text-overflow: ellipsis;
+
+}
+
+#author-visit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#footer-section {
+    background-color: rgb(240, 231, 218);
+    color: black;
+}

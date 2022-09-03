@@ -15,7 +15,7 @@ const addCategories = categories => {
             </div>
         `
         addcategoriesId.appendChild(creatdiv);
-
+        togglebar(true)
     })
     // '${categorie}'
 }
@@ -28,27 +28,55 @@ const newsfile = (category_id) => {
 }
 
 const singlenews = finds => {
+
     const newssection = document.getElementById('news-section');
+    if (finds.length === 0) {
+        alert('No news found')
+    };
     newssection.innerHTML = ``;
     finds.forEach(find => {
         console.log(find)
         const CreatDiv = document.createElement('div');
         CreatDiv.classList.add('row', 'g-0', 'mt-5');
         CreatDiv.innerHTML = `
-    <div class="col-md-4">
+    <div class="col-lg-4 col-md-12">
         <img src="${find.image_url}" class="img-fluid rounded-start" alt="...">
     </div>
-    <div class="col-md-8">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-            additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="col-lg-8 col-md-12">
+        <div class="card-body ms-2">
+            <h5 class="card-title">${find.title}</h5>
+            <p class="card-text" id="news-details">Hlw</p>
+            <div id="author-visit">
+                <div>
+                    <p>${find.author.name ? find.author.name : 'nothing found'}</p>
+                    <p>${find.author.published_date}</p>
+                </div>
+                <div><p>views:${find.total_view ? find.total_view : 'nothing found'}</p></div>
+            </div>
         </div>
     </div>
     `
         newssection.appendChild(CreatDiv);
-    })
+    });
+    togglebar(false);
+
+    const newsItemNumber = document.getElementById('news-item-number');
+    newsItemNumber.innerHTML = `
+    <p>items found for</p>
+    `;
+
 }
+const togglebar = isloading => {
+    const loadingbar = document.getElementById('loading');
+    if (isloading) {
+        loadingbar.classList.remove('d-none');
+    }
+    else {
+        loadingbar.classList.add('d-none')
+    }
+}
+
 Allcategories()
+newsfile('05');
 {/* <img src="${find.image_url}" class="img-fluid rounded-start" alt="..."> */ }
+// ${find.details}
