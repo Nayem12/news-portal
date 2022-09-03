@@ -44,3 +44,10 @@
     height: 50%;
     width: 55%;
 }
+
+.qsn-list p {
+    color: orangered;
+    border: 1px solid lightgreen;
+    border-radius: 5px;
+    padding: 10px;
+}
