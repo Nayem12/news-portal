@@ -13,11 +13,21 @@
 
 #author-visit {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
 }
 
 #footer-section {
     background-color: rgb(240, 231, 218);
     color: black;
+}
+
+.author-info {
+    display: flex;
+
+
+}
+
+.aurthor-img {
+    height: 50%;
+    width: 55%;
 }
