@@ -20,6 +20,7 @@ const addCategories = categories => {
     // '${categorie}'
 }
 const newsfile = (category_id) => {
+    togglebar(true)
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     fetch(url)
         .then(res => res.json())
@@ -37,19 +38,19 @@ const singlenews = finds => {
     finds.forEach(find => {
         console.log(find)
         const CreatDiv = document.createElement('div');
-        CreatDiv.classList.add('row', 'g-0', 'mt-5');
+        CreatDiv.classList.add('row', 'g-0',);
         CreatDiv.innerHTML = `
-    <div class="col-lg-4 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnDetails" onclick="personalId('${find._id}')">
-        <img src="${find.image_url}" class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-lg-8 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnDetails" onclick="personalId('${find._id}')">
+        <div class="col-lg-4 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnNews" onclick="personalId('${find._id}')">
+            <img src="${find.image_url}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-lg-8 col-md-12" data-bs-toggle="modal" data-bs-target="#searchOnNews" onclick="personalId('${find._id}')">
         <div class="card-body ms-2">
             <h5 class="card-title">${find.title}</h5>
-            <p class="card-text" id="news-details">${find.details ? find.details.slice(0, 80) : find.details}</p>
+            <p class="card-text" id="news-details">${find.details ? find.details : 'nothing found'}</p>
             <div id="author-visit">
                 <div class="author-info">
-                    <div class="w-25 h-25">
-                        <img src="${find.author.img}" class="img-fluid rounded-circle w-25 h-25" alt="...">
+                    <div class="img">
+                        <img src="${find.author.img}" class="img-fluid rounded-circle w-50 h-50" alt="...">
                     </div>
                     <div>
                         <p>${find.author.name ? find.author.name : 'nothing found'}</p>
@@ -67,10 +68,7 @@ const singlenews = finds => {
     });
     togglebar(false);
 
-    const newsItemNumber = document.getElementById('news-item-number');
-    newsItemNumber.innerHTML = `
-    <p>items found for</p>
-    `;
+
 
 }
 const togglebar = isloading => {
@@ -86,11 +84,26 @@ const personalId = news_id => {
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`
     fetch(url)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => displayModal(data.data))
 }
-personalId();
+// const 
+const displayModal = allnews => {
+
+    allnews.forEach(news => {
+        const modalTitle = document.getElementById('exampleModalLabel')
+        modalTitle.innerText = news.title;
+        const modalBody = document.getElementById('modal-body')
+        modalBody.innerHTML = ` 
+      <img class="img-fluid" src="${news.author.img}" alt="">
+      <P>${news.author.name ? news.author.name : 'No found name'} </br> ${news.author.published_date}
+      <hr>
+      <p><i class="fa-solid fa-eye"></i> ${news.total_view ? news.total_view : 'No data available'} </p>
+      <p>${news.title}</p>
+      <img class="img-fluid" src="${news.thumbnail_url}" alt="">
+      `
+    })
+}
+
 
 Allcategories()
 newsfile('05');
-{/* <img src="${find.image_url}" class="img-fluid rounded-start" alt="..."> */ }
-// ${find.details}

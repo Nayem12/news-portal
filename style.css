@@ -6,9 +6,18 @@
     color: orangered;
 }
 
-#news-details {
-    text-overflow: ellipsis;
 
+
+#news-details {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.img {
+    height: 40%;
 }
 
 #author-visit {
