@@ -30,6 +30,9 @@ const newsfile = (category_id) => {
 }
 
 const singlenews = finds => {
+    finds.sort((a, b) => {
+        return b.total_view - a.total_view
+    })
     const showNews = document.getElementById('show-all-news').innerText = finds.length;
     const newssection = document.getElementById('news-section');
     if (finds.length === 0) {
